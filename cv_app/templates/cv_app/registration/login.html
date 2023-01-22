@@ -67,6 +67,13 @@
                 <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
             </div>
         </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-danger text-center" style="font-weight: bold;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        
     </div>
 
     <!-- ########## All JS ########## -->
