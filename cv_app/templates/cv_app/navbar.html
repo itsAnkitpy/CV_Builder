@@ -41,8 +41,13 @@
                         </ul>
 
                         <!-- Button -->
-                        <a href="{% url 'login' %}" class="btn login-btn mr-im">Log in</a>
-                        <a href="{% url 'register' %}" class="btn login-btn">Signup </a>
+                        {% if user.is_authenticated %}
+                            <a href="#" class="btn login-btn mr-im">Hi {{user.username}}</a>
+                            <a href="#" class="btn login-btn">Logout </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn login-btn mr-im">Log In</a>
+                            <a href="{% url 'register' %}" class="btn login-btn">Register </a>
+                        {% endif %}
                     </div>
                     <!-- Nav End -->
                 </div>

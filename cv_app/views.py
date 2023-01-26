@@ -3,8 +3,9 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages,auth
 from django.contrib.auth import authenticate,logout
 from django.contrib.auth.decorators import login_required 
+from django.http import JsonResponse
 
-from .models import User
+from .models import User,Skill
 
 def index(request):
     return render(request, 'cv_app/index.html')
@@ -51,5 +52,30 @@ def dashboard(request):
     return render(request, 'cv_app/dashboard.html')
 
 def createCv(request):
-    return render(request, 'cv_app/create_cv.html')  
+    return render(request, 'cv_app/create_cv.html') 
+
+def saveSkill(request):
+    if request.method == 'POST':
+        
+        s_name = request.POST.getlist('s_name[]')
+        s_level = request.POST.getlist('s_level')
+        
+        if(len(s_name) == 1):
+            a = Skill(s_name = s_name[0], s_level=s_level[0], cv_id=1)
+            a.save()
+            
+        
+        else: 
+            for x,y in zip(s_level,s_name):
+                a = Skill(s_level=x, s_name=y, cv_id=1)
+                a.save()
+        return JsonResponse('1')
+
+    return JsonResponse('0')
+
+        
+        
+        
+    
+                 
      
